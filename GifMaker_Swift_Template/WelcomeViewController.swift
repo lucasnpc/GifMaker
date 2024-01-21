@@ -11,4 +11,20 @@ import UIKit
 
 class WelcomeViewController: UIViewController {
     
+    @IBOutlet weak var gifImageView: UIImageView!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let proofOfConceptGif = UIImage.gif(name: "jeremy")
+        gifImageView.image = proofOfConceptGif
+    }
+    
+    override func viewDidLoad() {
+        
+    }
+    
+    override func didReceiveMemoryWarning() {
+        
+    }
+    
 }
