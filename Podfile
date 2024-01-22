@@ -6,5 +6,6 @@ target 'GifMaker_Swift_Template' do
   use_frameworks!
 
   # Pods for GifMaker_Swift_Template
+  pod 'SwiftGifOrigin', '~> 1.7.0'
 
 end

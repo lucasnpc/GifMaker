@@ -15,7 +15,7 @@ class WelcomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let proofOfConceptGif = UIImage.gif(name: "jeremy")
+        let proofOfConceptGif = UIImage.gif(name: "hotlineBling")
         gifImageView.image = proofOfConceptGif
     }
     
