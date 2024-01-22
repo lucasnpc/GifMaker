@@ -11,6 +11,11 @@ import UIKit
 import MobileCoreServices
 import UniformTypeIdentifiers
 
+let kFrameCount: Int = 16;
+let kDelayTime: Float = 0.2;
+let kLoopCount: Int = 0;
+let kFrameRate: Float = 15;
+
 extension UIViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBAction func launchVideoCamera(sender: AnyObject){
@@ -28,14 +33,27 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         let mediaType = info[UIImagePickerController.InfoKey.mediaType] as! String
         
         if mediaType == UTType.movie.identifier {
-            let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as! NSURL
-            UISaveVideoAtPathToSavedPhotosAlbum(videoURL.path!, nil, nil, nil)
+            let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as! URL
             dismiss(animated: true)
+            convertViewToGIF(videoUrl: videoURL)
         }
     }
     
     public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true)
+    }
+    
+    func convertViewToGIF(videoUrl: URL){
+        let regift = Regift(sourceFileURL: videoUrl, frameCount: kFrameCount, delayTime: kDelayTime, loopCount: kLoopCount)
+        let gifUrl = regift.createGif()
+        let gif = Gif(gifUrl: gifUrl, videoURL: videoUrl, caption: nil)
+        displayGIF(gif: gif)
+    }
+    
+    func displayGIF(gif: Gif){
+        let gifEditorVC = storyboard?.instantiateViewController(withIdentifier: "GifEditorViewController") as! GifEditorViewController
+        gifEditorVC.gif = gif
+        navigationController?.pushViewController(gifEditorVC, animated: true)
     }
     
 }

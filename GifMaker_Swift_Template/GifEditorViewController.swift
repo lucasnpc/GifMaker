@@ -11,4 +11,16 @@ import UIKit
 
 class GifEditorViewController: UIViewController{
     
+    @IBOutlet weak var gifImageView: UIImageView!
+    @IBOutlet weak var captionTextField: UITextField!
+    var gif: Gif?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        gifImageView.image = gif?.gifImage
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+    }
 }
