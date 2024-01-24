@@ -17,6 +17,8 @@ class WelcomeViewController: UIViewController {
         super.viewWillAppear(animated)
         let proofOfConceptGif = UIImage.gif(name: "tinaFeyHiFive")
         gifImageView.image = proofOfConceptGif
+        
+        self.applyTheme(.dark)
     }
     
     override func viewDidLoad() {

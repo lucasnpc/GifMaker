@@ -40,4 +40,20 @@ class GifPreviewViewController: UIViewController {
         self.saveButton.layer.cornerRadius = 4.0
 
     }
+    
+    @IBAction func shareGif(sender: AnyObject) {
+        let url: URL = (self.gif?.url)!
+        let animatedGIF = NSData(contentsOf: url)!
+        let itemsToShare = [animatedGIF]
+
+        let activityVC = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
+
+        activityVC.completionWithItemsHandler = {(activity, completed, items, error) in
+            if (completed) {
+                self.navigationController?.popToRootViewController(animated: true)
+            }
+        }
+
+        navigationController?.present(activityVC, animated: true, completion: nil)
+    }
 }
