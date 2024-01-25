@@ -43,6 +43,7 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func presentPreview(_ sender: Any) {
         let previewVC = storyboard?.instantiateViewController(withIdentifier: "GifPreviewViewController") as! GifPreviewViewController
+        let savedGifsVC = storyboard?.instantiateViewController(withIdentifier: "SavedGifsViewController") as! SavedGifsViewController
         self.gif?.caption = self.captionTextField.text
 
         let regift = Regift(sourceFileURL: self.gif!.videoURL!, destinationFileURL: nil, frameCount: kFrameCount, delayTime: kDelayTime, loopCount: kLoopCount)
@@ -52,6 +53,7 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
 
         let newGif = Gif(gifUrl: gifURL, videoURL: self.gif!.videoURL, caption: self.captionTextField.text)
         previewVC.gif = newGif
+        previewVC.previewDelegate = savedGifsVC
         
         navigationController?.pushViewController(previewVC, animated: true)
     }

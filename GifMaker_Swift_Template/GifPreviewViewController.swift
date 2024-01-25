@@ -9,12 +9,17 @@
 import Foundation
 import UIKit
 
+protocol GifPreviewViewControllerDelegate{
+    func previewVC(preview: GifPreviewViewController, didSaveGif gif: Gif)
+}
+
 class GifPreviewViewController: UIViewController {
     @IBOutlet weak var gifImageView: UIImageView!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     
     var gif: Gif?
+    var previewDelegate: GifPreviewViewControllerDelegate?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -42,7 +47,7 @@ class GifPreviewViewController: UIViewController {
     }
     
     @IBAction func shareGif(sender: AnyObject) {
-        let url: URL = (self.gif?.url)!
+        let url: URL = (self.gif?.gifURL)!
         let animatedGIF = NSData(contentsOf: url)!
         let itemsToShare = [animatedGIF]
 
@@ -55,5 +60,16 @@ class GifPreviewViewController: UIViewController {
         }
 
         navigationController?.present(activityVC, animated: true, completion: nil)
+    }
+    
+    @IBAction func createAndSave() {
+        do {
+            self.gif!.gifData = try Data(contentsOf: (self.gif?.gifURL)!)
+
+            previewDelegate?.previewVC(preview: self, didSaveGif: gif!)
+            navigationController!.popToRootViewController(animated: true)
+        } catch {
+            print(error)
+        }
     }
 }
