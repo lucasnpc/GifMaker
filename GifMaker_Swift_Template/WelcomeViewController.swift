@@ -15,10 +15,10 @@ class WelcomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let proofOfConceptGif = UIImage.gif(name: "tinaFeyHiFive")
-        gifImageView.image = proofOfConceptGif
+        let welcomeGif = UIImage.gif(name: "tinaFeyHiFive")
+        gifImageView.image = welcomeGif
         
-        self.applyTheme(.dark)
+        UserDefaults.standard.set(true, forKey: "WelcomeViewSeen")
     }
     
     override func viewDidLoad() {

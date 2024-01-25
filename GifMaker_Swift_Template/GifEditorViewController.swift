@@ -17,12 +17,28 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        gifImageView.image = gif?.gifImage
         subscribeToKeyboardNotifications()
         
         self.title = "Add a Caption"
         self.applyTheme(.dark)
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        gifImageView.image = gif?.gifImage
+        
+        let defaultAttributes: [NSAttributedString.Key: Any] = [.strokeColor: UIColor.black,
+                                                                .strokeWidth: -4,
+                                                                .foregroundColor: UIColor.white,
+                                                                .font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40.0)!]
+        self.captionTextField.defaultTextAttributes = defaultAttributes
+        self.captionTextField.textAlignment = .center
+        self.captionTextField.attributedPlaceholder = NSAttributedString(string: "Add Caption", attributes: defaultAttributes)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        self.view.addGestureRecognizer(tapGesture)
+    }
+
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

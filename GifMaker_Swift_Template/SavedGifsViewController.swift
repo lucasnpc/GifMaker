@@ -31,16 +31,35 @@ class SavedGifsViewController: UIViewController, UICollectionViewDataSource, UIC
         emptyView.isHidden = gifs.count > 0
         collectionView.reloadData()                                          
         
-        self.applyTheme(.dark)
+        title = "My Collection"
+        self.applyTheme(.light)
+        navigationController?.navigationBar.isHidden = gifs.count == 0
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        showWelcome()
+        
+        // Bottom Blur
+        let bottomBlur = CAGradientLayer()
+        bottomBlur.frame = CGRect(x: 0.0, y: self.view.frame.size.height - 100.0, width: self.view.frame.size.width, height: 100.0)
+        bottomBlur.colors = [UIColor(white: 1.0, alpha: 0.0).cgColor,
+                             UIColor.white.cgColor]
+        self.view.layer.insertSublayer(bottomBlur, above: self.collectionView.layer)
+        
         if let unarchivedGifs = NSKeyedUnarchiver.unarchiveObject(withFile: gifsFilePath) as? [Gif] {
             gifs = unarchivedGifs
         } else {
             gifs = []
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        navigationController?.navigationBar.isHidden = false
+        title = ""
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -61,6 +80,24 @@ class SavedGifsViewController: UIViewController, UICollectionViewDataSource, UIC
         let width = (collectionView.frame.size.width - (cellMargin * 2.0))/2.0
         return CGSizeMake(width, width)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let gif = gifs[indexPath.item]
+        
+        let detailVC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        detailVC.gif = gif
+        
+        detailVC.modalPresentationStyle = .overCurrentContext
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
+    
+    func showWelcome() {
+        if UserDefaults.standard.bool(forKey: "WelcomeViewSeen") != true {
+            let welcomeVC = self.storyboard?.instantiateViewController(withIdentifier: "WelcomeViewController")
+            self.navigationController?.pushViewController(welcomeVC!, animated: true)
+        }
+    }
+
     
     func previewVC(preview: GifPreviewViewController, didSaveGif gif: Gif) {
         gifs.append(gif)

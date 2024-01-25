@@ -11,6 +11,11 @@ import UIKit
 
 // Methods to adjust the keyboard
 extension GifEditorViewController {
+    
+    @objc func dismissKeyboard() {
+        self.view.endEditing(true)
+    }
+    
     func subscribeToKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)

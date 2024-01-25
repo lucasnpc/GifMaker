@@ -10,5 +10,36 @@ import Foundation
 import UIKit
 
 class DetailViewController: UIViewController {
+    @IBOutlet weak var gifImageView: UIImageView!
+    @IBOutlet weak var shareButton: UIButton!
     
+    var gif: Gif!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        shareButton.layer.cornerRadius = 4.0
+        
+        gifImageView.image = gif.gifImage
+        applyTheme(.darkTranslucent)
+    }
+    
+    @IBAction func shareGif(_ sender: Any) {
+        var itemsToShare: [Any]
+        itemsToShare = [gif.gifData!]
+        
+        let shareController = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
+        
+        shareController.completionWithItemsHandler = { (activityType, completed, returnedItems, activityError) in
+            if completed {
+                self.dismiss(animated: true)
+            }
+        }
+        
+        self.present(shareController, animated: true)
+    }
+    
+    @IBAction func dismissViewController(_ sender: Any) {
+        self.dismiss(animated: true)
+    }
 }
