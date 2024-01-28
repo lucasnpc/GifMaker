@@ -19,14 +19,5 @@ class WelcomeViewController: UIViewController {
         gifImageView.image = welcomeGif
         
         UserDefaults.standard.set(true, forKey: "WelcomeViewSeen")
-    }
-    
-    override func viewDidLoad() {
-        
-    }
-    
-    override func didReceiveMemoryWarning() {
-        
-    }
-    
+    }    
 }

@@ -32,7 +32,7 @@ class DetailViewController: UIViewController {
         
         shareController.completionWithItemsHandler = { (activityType, completed, returnedItems, activityError) in
             if completed {
-                self.dismiss(animated: true)
+                self.navigationController?.popViewController(animated: true)
             }
         }
         
@@ -40,6 +40,6 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func dismissViewController(_ sender: Any) {
-        self.dismiss(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
 }

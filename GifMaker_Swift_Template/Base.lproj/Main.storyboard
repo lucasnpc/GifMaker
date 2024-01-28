@@ -338,7 +338,7 @@
                                 </constraints>
                                 <state key="normal" image="Close"/>
                                 <connections>
-                                    <action selector="dismissViewController:" destination="Ilf-GF-t1a" eventType="touchDragInside" id="cyE-eC-UuQ"/>
+                                    <action selector="dismissViewController:" destination="Ilf-GF-t1a" eventType="touchUpInside" id="DBL-gY-xwE"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -362,7 +362,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BEl-4x-y0s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1215" y="66"/>
+            <point key="canvasLocation" x="747" y="-125"/>
         </scene>
         <!--Welcome View Controller-->
         <scene sceneID="MO7-ys-2QJ">
